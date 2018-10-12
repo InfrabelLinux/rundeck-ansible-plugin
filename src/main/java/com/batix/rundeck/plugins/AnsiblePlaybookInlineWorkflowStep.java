@@ -46,6 +46,7 @@ public class AnsiblePlaybookInlineWorkflowStep implements StepPlugin, AnsibleDes
         builder.property(BECOME_USER_PROP);
         builder.property(BECOME_PASSWORD_STORAGE_PROP);
         builder.property(DISABLE_LIMIT_PROP);
+        builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
 
         DESC=builder.build();
     }

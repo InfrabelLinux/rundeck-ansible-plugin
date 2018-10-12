@@ -92,6 +92,7 @@ public class AnsibleRunnerBuilder {
         if (path != null && path.contains("${")) {
             path = DataContextUtils.replaceDataReferences(path, context.getDataContext());
         }
+        path = qualifyPath(path);
         return path;
     }
 
@@ -515,6 +516,8 @@ public class AnsibleRunnerBuilder {
                 path = DataContextUtils.replaceDataReferences(path, context.getDataContext());
             }
 
+            path = qualifyPath(path);
+
             if (path != null) {
               try {
 				return new String(Files.readAllBytes(Paths.get(path)));
@@ -535,9 +538,27 @@ public class AnsibleRunnerBuilder {
         }
 
         if (null != playbook && playbook.contains("${")) {
-            return DataContextUtils.replaceDataReferences(playbook, getContext().getDataContext());
+            playbook = DataContextUtils.replaceDataReferences(playbook, getContext().getDataContext());
         }
+
+        playbook = qualifyPath(playbook);
+
         return playbook;
+    }
+
+    public String qualifyPath(String sourcePath) {
+        String path = sourcePath;
+        //Boolean use_project_based_subdirectory =  Boolean.parseBoolean((String) jobConf.get(AnsibleDescribable.ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY));
+        Boolean use_project_based_subdirectory = true;
+        if (use_project_based_subdirectory && sourcePath != null) {
+            String project = context.getFrameworkProject();
+            path = Paths.get(project, sourcePath).toString();
+            path = path.replace("/..$", "/");
+            path = path.replace("../", "/");
+            File path_f = new File(path);
+            path = path_f.getAbsolutePath();
+        }
+        return path;
     }
 
     public String getPlaybookInline() {
@@ -738,8 +759,10 @@ public class AnsibleRunnerBuilder {
         );
 
         if (null != inventory && inventory.contains("${")) {
-            return DataContextUtils.replaceDataReferences(inventory, getContext().getDataContext());
+            inventory = DataContextUtils.replaceDataReferences(inventory, getContext().getDataContext());
         }
+
+        inventory = qualifyPath(inventory);
 
         return inventory;
     }
@@ -800,8 +823,11 @@ public class AnsibleRunnerBuilder {
         }
 
         if (null != baseDir && baseDir.contains("${")) {
-            return DataContextUtils.replaceDataReferences(baseDir, getContext().getDataContext());
+            baseDir = DataContextUtils.replaceDataReferences(baseDir, getContext().getDataContext());
         }
+
+        baseDir = qualifyPath(baseDir);
+
         return baseDir;
     }
 

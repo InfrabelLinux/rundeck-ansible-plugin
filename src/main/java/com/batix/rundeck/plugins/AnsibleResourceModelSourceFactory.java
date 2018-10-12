@@ -57,6 +57,7 @@ public class AnsibleResourceModelSourceFactory implements ResourceModelSourceFac
         builder.frameworkMapping(ANSIBLE_VAULT_PASSWORD,FWK_PROP_PREFIX + ANSIBLE_VAULT_PASSWORD);
         builder.mapping(ANSIBLE_VAULT_PATH,PROJ_PROP_PREFIX + ANSIBLE_VAULT_PATH);
         builder.frameworkMapping(ANSIBLE_VAULT_PATH,FWK_PROP_PREFIX + ANSIBLE_VAULT_PATH);
+        builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
 
 
         DESC=builder.build();

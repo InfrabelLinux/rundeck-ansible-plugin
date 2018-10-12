@@ -46,6 +46,7 @@ public class AnsibleFileCopier implements FileCopier, AnsibleDescribable {
         builder.property(BECOME_PASSWORD_STORAGE_PROP);
         builder.property(VAULT_KEY_FILE_PROP);
         builder.property(VAULT_KEY_STORAGE_PROP);
+        builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
         builder.mapping(ANSIBLE_CONFIG_FILE_PATH,PROJ_PROP_PREFIX + ANSIBLE_CONFIG_FILE_PATH);
         builder.frameworkMapping(ANSIBLE_CONFIG_FILE_PATH,FWK_PROP_PREFIX + ANSIBLE_CONFIG_FILE_PATH);
         builder.mapping(ANSIBLE_VAULT_PATH,PROJ_PROP_PREFIX + ANSIBLE_VAULT_PATH);

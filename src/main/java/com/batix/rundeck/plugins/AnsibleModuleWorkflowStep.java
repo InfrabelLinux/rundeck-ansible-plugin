@@ -42,6 +42,7 @@ public class AnsibleModuleWorkflowStep implements StepPlugin, AnsibleDescribable
         builder.property(BECOME_AUTH_TYPE_PROP);
         builder.property(BECOME_USER_PROP);
         builder.property(BECOME_PASSWORD_STORAGE_PROP);
+        builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
 
         DESC=builder.build();
     }

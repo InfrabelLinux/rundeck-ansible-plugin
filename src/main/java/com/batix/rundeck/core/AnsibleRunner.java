@@ -355,6 +355,7 @@ public class AnsibleRunner {
       procArgs.add("-t");
       procArgs.add(baseDirectory.toFile().getAbsolutePath());
     } else if (type == AnsibleCommand.PlaybookPath) {
+
       procArgs.add(playbook);
     } else if (type == AnsibleCommand.PlaybookInline) {
 
