@@ -2,6 +2,7 @@ package com.batix.rundeck.core;
 
 import com.dtolabs.rundeck.core.plugins.configuration.Describable;
 import com.dtolabs.rundeck.core.plugins.configuration.Property;
+import com.dtolabs.rundeck.core.plugins.configuration.PropertyScope;
 import com.dtolabs.rundeck.core.plugins.configuration.PropertyUtil;
 import com.dtolabs.rundeck.core.plugins.configuration.StringRenderingConstants;
 import com.dtolabs.rundeck.plugins.util.PropertyBuilder;
@@ -107,6 +108,7 @@ public interface AnsibleDescribable extends Describable {
     public static final String ANSIBLE_VAULT_PATH = "ansible-vault-path";
     public static final String ANSIBLE_VAULTSTORE_PATH = "ansible-vault-storage-path";
     public static final String ANSIBLE_VAULT_PASSWORD = "ansible-vault-password";
+    public static final String ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY = "ansible-use-project-based-subdirectory";
 
     // ssh configuration
     public static final String ANSIBLE_SSH_PASSWORD = "ansible-ssh-password";
@@ -198,6 +200,15 @@ public interface AnsibleDescribable extends Describable {
     .title("Generate inventory")
     .description("Generate Ansible inventory from Rundeck nodes.")
     .build();
+
+    public static Property USE_PROJECT_BASED_SUBDIRECTORY_PROP = PropertyUtil.bool(
+            ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY,
+            "Use per-project subdirectories",
+            "Make all paths relative to a per-project subdirectory of the Rundeck home directory.",
+            false,
+            "false",
+            PropertyScope.Project
+    );
 
     public static Property EXECUTABLE_PROP = PropertyUtil.freeSelect(
               ANSIBLE_EXECUTABLE,
