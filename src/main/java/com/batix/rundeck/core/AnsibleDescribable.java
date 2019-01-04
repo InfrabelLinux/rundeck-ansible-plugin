@@ -109,6 +109,7 @@ public interface AnsibleDescribable extends Describable {
     public static final String ANSIBLE_VAULTSTORE_PATH = "ansible-vault-storage-path";
     public static final String ANSIBLE_VAULT_PASSWORD = "ansible-vault-password";
     public static final String ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY = "ansible-use-project-based-subdirectory";
+    public static final String ANSIBLE_BASE_DIRECTORY_PARENT = "ansible-base-directory-parent";
 
     // ssh configuration
     public static final String ANSIBLE_SSH_PASSWORD = "ansible-ssh-password";
@@ -244,6 +245,16 @@ public interface AnsibleDescribable extends Describable {
             PropertyScope.Project
     );
 
+    public static Property BASE_DIRECTORY_PARENT_PROP = PropertyUtil.string(
+            ANSIBLE_BASE_DIRECTORY_PARENT,
+            "Set the parent directory for all paths",
+            "All paths are by default relative to the Rundeck home directory. Set this to a value to change it.",
+            false,
+            null,
+            null,
+            PropertyScope.Project
+    );
+
     public static Property LIMIT_PROP = PropertyUtil.string(
               ANSIBLE_LIMIT,
               "Limit Targets",
@@ -257,7 +268,7 @@ public interface AnsibleDescribable extends Describable {
     		 "Disable Limit",
     		 "Disables passing the --limit parameter from Rundeck into Ansible.  If you want to select hosts, you must pass the --limit in the extra arguments field.",
     		 true,
-    		 "false"
+    		 "true"
     );
 
     public static Property IGNORE_TAGS_PREFIX_PROP = PropertyUtil.string(

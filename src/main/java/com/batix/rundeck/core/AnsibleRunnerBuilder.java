@@ -549,14 +549,21 @@ public class AnsibleRunnerBuilder {
     public String qualifyPath(String sourcePath) {
         String path = sourcePath;
         //Boolean use_project_based_subdirectory =  Boolean.parseBoolean((String) jobConf.get(AnsibleDescribable.ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY));
-        Boolean use_project_based_subdirectory = true;
+        Boolean use_project_based_subdirectory =  Boolean.parseBoolean((String) jobConf.get(AnsibleDescribable.ANSIBLE_USE_PROJECT_BASED_SUBDIRECTORY));
+        String base_path_parent = (String) jobConf.get(AnsibleDescribable.ANSIBLE_BASE_DIRECTORY_PARENT);
         if (use_project_based_subdirectory && sourcePath != null) {
             String project = context.getFrameworkProject();
             path = Paths.get(project, sourcePath).toString();
             path = path.replace("/..$", "/");
             path = path.replace("../", "/");
+            if (base_path_parent != null) {
+                path = Paths.get(base_path_parent, path).toString();
+            }
             File path_f = new File(path);
             path = path_f.getAbsolutePath();
+        }
+        if (base_path_parent != null && sourcePath != null) {
+            path = Paths.get(base_path_parent, path).toString();
         }
         return path;
     }

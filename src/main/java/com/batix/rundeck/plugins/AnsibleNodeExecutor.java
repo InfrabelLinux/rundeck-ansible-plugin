@@ -80,6 +80,7 @@ public class AnsibleNodeExecutor implements NodeExecutor, AnsibleDescribable {
         builder.mapping(ANSIBLE_VAULTSTORE_PATH,PROJ_PROP_PREFIX + ANSIBLE_VAULTSTORE_PATH);
         builder.frameworkMapping(ANSIBLE_VAULTSTORE_PATH,FWK_PROP_PREFIX + ANSIBLE_VAULTSTORE_PATH);
         builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
+        builder.property(BASE_DIRECTORY_PARENT_PROP);
 
         DESC=builder.build();
   }

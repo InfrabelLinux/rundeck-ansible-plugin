@@ -26,7 +26,7 @@ public class AnsibleRunner {
   enum AnsibleCommand {
     AdHoc("ansible"),
     PlaybookPath("ansible-playbook"),
-	   PlaybookInline("ansible-playbook");
+    PlaybookInline("ansible-playbook");
 
     final String command;
     AnsibleCommand(String command) {
