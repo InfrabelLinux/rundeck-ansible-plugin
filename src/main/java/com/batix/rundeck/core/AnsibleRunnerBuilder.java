@@ -561,9 +561,10 @@ public class AnsibleRunnerBuilder {
             }
             File path_f = new File(path);
             path = path_f.getAbsolutePath();
-        }
-        if (base_path_parent != null && sourcePath != null) {
-            path = Paths.get(base_path_parent, path).toString();
+        } else {
+            if (base_path_parent != null && sourcePath != null) {
+                path = Paths.get(base_path_parent, path).toString();
+            }
         }
         return path;
     }
