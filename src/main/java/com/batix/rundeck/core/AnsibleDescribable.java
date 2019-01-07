@@ -268,7 +268,8 @@ public interface AnsibleDescribable extends Describable {
     		 "Disable Limit",
     		 "Disables passing the --limit parameter from Rundeck into Ansible.  If you want to select hosts, you must pass the --limit in the extra arguments field.",
     		 true,
-    		 "true"
+    		 "true",
+            PropertyScope.ProjectOnly
     );
 
     public static Property IGNORE_TAGS_PREFIX_PROP = PropertyUtil.string(
@@ -302,12 +303,14 @@ public interface AnsibleDescribable extends Describable {
             "Extra Ansible arguments",
             "Additional ansible raw command line arguments to be appended to the executed command.",
             false,
-            ""
+            "",
+            null,
+            PropertyScope.ProjectOnly
       );
 
     static final Property VAULT_KEY_FILE_PROP = PropertyUtil.string(ANSIBLE_VAULT_PATH, "Vault Key File path",
             "File Path to the ansible vault Key to use",
-            false, null);
+            false, null, null, PropertyScope.ProjectOnly);
 
     static final Property VAULT_KEY_STORAGE_PROP = PropertyBuilder.builder()
             .string(ANSIBLE_VAULTSTORE_PATH)
@@ -318,6 +321,7 @@ public interface AnsibleDescribable extends Describable {
                     StringRenderingConstants.SelectionAccessor.STORAGE_PATH)
             .renderingOption(StringRenderingConstants.STORAGE_PATH_ROOT_KEY, "keys")
             .renderingOption(StringRenderingConstants.STORAGE_FILE_META_FILTER_KEY, "Rundeck-data-type=password")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property VAULT_PASSWORD_PROP = PropertyBuilder.builder()
@@ -327,6 +331,7 @@ public interface AnsibleDescribable extends Describable {
             .description("Ansible Vault password.")
             .renderingOption(StringRenderingConstants.DISPLAY_TYPE_KEY,
                     StringRenderingConstants.DisplayType.PASSWORD)
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
 
@@ -337,6 +342,7 @@ public interface AnsibleDescribable extends Describable {
             .description("File Path to the SSH Key to use")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
 
@@ -351,6 +357,7 @@ public interface AnsibleDescribable extends Describable {
             .renderingOption(StringRenderingConstants.STORAGE_FILE_META_FILTER_KEY, "Rundeck-key-type=private")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property SSH_PASSWORD_STORAGE_PROP = PropertyBuilder.builder()
@@ -364,6 +371,7 @@ public interface AnsibleDescribable extends Describable {
             .renderingOption(StringRenderingConstants.STORAGE_FILE_META_FILTER_KEY, "Rundeck-data-type=password")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property SSH_PASSWORD_PROP = PropertyBuilder.builder()
@@ -375,6 +383,7 @@ public interface AnsibleDescribable extends Describable {
                     StringRenderingConstants.DisplayType.PASSWORD)
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property SSH_AUTH_TYPE_PROP = PropertyBuilder.builder()
@@ -385,6 +394,7 @@ public interface AnsibleDescribable extends Describable {
             .values(Arrays.asList(AuthenticationType.getValues()))
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property SSH_USER_PROP = PropertyBuilder.builder()
@@ -394,6 +404,7 @@ public interface AnsibleDescribable extends Describable {
             .description("SSH User to authenticate as (default=rundeck).")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property SSH_TIMEOUT_PROP = PropertyBuilder.builder()
@@ -403,6 +414,7 @@ public interface AnsibleDescribable extends Describable {
             .description("SSH timeout, override the SSH timeout in seconds (default=10).")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"SSH Connection")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
 
@@ -413,6 +425,7 @@ public interface AnsibleDescribable extends Describable {
             .description("Run operations with become (nopasswd implied).")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"Privilege Escalation")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property BECOME_USER_PROP = PropertyBuilder.builder()
@@ -422,6 +435,7 @@ public interface AnsibleDescribable extends Describable {
             .description("run operations as this user (default=root).")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"Privilege Escalation")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
 
@@ -436,6 +450,7 @@ public interface AnsibleDescribable extends Describable {
             .renderingOption(StringRenderingConstants.STORAGE_FILE_META_FILTER_KEY, "Rundeck-data-type=password")
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"Privilege Escalation")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property BECOME_PASSWORD_PROP = PropertyBuilder.builder()
@@ -447,6 +462,7 @@ public interface AnsibleDescribable extends Describable {
                     StringRenderingConstants.DisplayType.PASSWORD)
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"Privilege Escalation")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property BECOME_AUTH_TYPE_PROP = PropertyBuilder.builder()
@@ -457,6 +473,7 @@ public interface AnsibleDescribable extends Describable {
             .values(Arrays.asList(BecomeMethodType.getValues()))
             .renderingOption(StringRenderingConstants.GROUPING,"SECONDARY")
             .renderingOption(StringRenderingConstants.GROUP_NAME,"Privilege Escalation")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 
     static final Property CONFIG_FILE_PATH = PropertyBuilder.builder()
@@ -464,5 +481,6 @@ public interface AnsibleDescribable extends Describable {
             .required(false)
             .title("Ansible config file path")
             .description("Set ansible config file path.")
+            .scope(PropertyScope.ProjectOnly)
             .build();
 }
