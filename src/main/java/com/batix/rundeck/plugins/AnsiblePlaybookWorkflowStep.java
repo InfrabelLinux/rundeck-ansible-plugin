@@ -46,6 +46,7 @@ public class AnsiblePlaybookWorkflowStep implements StepPlugin, AnsibleDescribab
         builder.property(BECOME_USER_PROP);
         builder.property(BECOME_PASSWORD_STORAGE_PROP);
         builder.property(DISABLE_LIMIT_PROP);
+        builder.property(LIMIT_PROP);
         builder.property(USE_PROJECT_BASED_SUBDIRECTORY_PROP);
         builder.property(BASE_DIRECTORY_PARENT_PROP);
 
@@ -62,10 +63,6 @@ public class AnsiblePlaybookWorkflowStep implements StepPlugin, AnsibleDescribab
     for(String node : context.getNodes().getNodeNames()) {
     	nodes.append(node);
     	nodes.append(",");
-    }
-    String limit = nodes.length() > 0 ? nodes.substring(0, nodes.length() - 1): "";
-    if (limit != "") {
-        configuration.put(AnsibleDescribable.ANSIBLE_LIMIT,limit);
     }
     // set log level
     if (context.getDataContext().get("job").get("loglevel").equals("DEBUG")) {

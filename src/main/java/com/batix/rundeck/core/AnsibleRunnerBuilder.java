@@ -778,18 +778,6 @@ public class AnsibleRunnerBuilder {
     public String getLimit() throws ConfigurationException {
         final String limit;
 
-        // Return Null if Disabled
-        if(PropertyResolver.resolveBooleanProperty(
-        				AnsibleDescribable.ANSIBLE_DISABLE_LIMIT,
-        				Boolean.valueOf(AnsibleDescribable.DISABLE_LIMIT_PROP.getDefaultValue()),
-    				    getFrameworkProject(),
-                        getFramework(),
-                        getNode(),
-                        getjobConf())){
-
-        	return null;
-        }
-
         // Get Limit from Rundeck
         limit = PropertyResolver.resolveProperty(
                      AnsibleDescribable.ANSIBLE_LIMIT,
@@ -800,6 +788,19 @@ public class AnsibleRunnerBuilder {
                      getjobConf()
                      );
 
+        if (limit == "" || limit == null) {
+            // Return Null if Disabled
+            if(PropertyResolver.resolveBooleanProperty(
+                    AnsibleDescribable.ANSIBLE_DISABLE_LIMIT,
+                    Boolean.valueOf(AnsibleDescribable.DISABLE_LIMIT_PROP.getDefaultValue()),
+                    getFrameworkProject(),
+                    getFramework(),
+                    getNode(),
+                    getjobConf())){
+
+                return null;
+            }
+        }
         if (null != limit && limit.contains("${")) {
             return DataContextUtils.replaceDataReferences(limit, getContext().getDataContext());
         }
